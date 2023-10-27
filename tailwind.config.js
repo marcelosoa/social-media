@@ -15,12 +15,13 @@ module.exports = {
         title: ["Montserrat-Bold",]
       },
       colors: {
-        'text': '#101410',
-        'background': '#f1f4f1',
-        'primary': '#516250',
-        'secondary': '#d5ddd5',
-        'accent': '#687e67',
+        'text': '#f0f0f0',
+        'background': '#121212',
+        'primary': '#3b3b3b',
+        'secondary': '#242424',
+        'accent': '#8a8a8a',
        },
+       
     },
   },
   plugins: [],

@@ -11,19 +11,21 @@ type InputProps = {
   value: string
 }
 
-export function InputComponent ({ placeholder, onChangeText, startIcon, endIcon, secureTextEntry, value,...props }: InputProps) {
+export function InputComponent ({ placeholder, onChangeText, startIcon, endIcon, secureTextEntry, value, error,...props }: InputProps) {
   return (
-    <View>
+    <View className="flex items-center flex-row pt-1 pb-3 pl-1 pr-3 gap-2 m-3 rounded-lg bg-secondary">
       {startIcon}
       <TextInput 
-        className="bg-secondary w-96 p-3 rounded-lg mt-10"
+        className="flex-1 text-text text-sm"
         placeholder={placeholder}
+        placeholderTextColor={'#fff'}
         secureTextEntry={secureTextEntry}
         value={value}
         onChangeText={onChangeText}
         {...props}
       />
       {endIcon}
+      {error && <View className="text-red-600">{error}</View>}
     </View>
   )
 }
