@@ -1,5 +1,10 @@
 import { useRouter } from "expo-router";
 import { createContext, useState } from "react";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "firebaseConfig";
+
+export const FIREBASE_APP = initializeApp(firebaseConfig)
 
 type loginFormData = {
   email: string,
@@ -10,6 +15,7 @@ type loginFormData = {
 type AuthContextProps = {
   signIn: (data: loginFormData) => void
   signOut: () => void
+  signUp: (data: loginFormData) => void
   name: string,
 }
 
@@ -42,10 +48,34 @@ function AuthContext ({children}: AuthProviderProps) {
     router.back()
   }
 
+  const auth = getAuth()
+
+  const signUp = async ({email, password}: loginFormData) => {
+    try {
+      const response = await createUserWithEmailAndPassword(auth, email, password)
+      const user = response.user
+      alert('check your email')
+      console.log(user, 'USER')
+      console.log(response, 'RESPOSE DATA')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // createUserWithEmailAndPassword(auth, email, password)
+  // .then((userCredential) => {
+  //   const user = userCredential.user
+  // })
+  // .catch((error) => {
+  //   const errorCode = error.code;
+  //   const errorMessage = error.message;
+  // })
+
   return (
     <useAuthContext.Provider value={{
       signIn,
       signOut,
+      signUp,
       name: 'Marcelo'
     }}>
       {children}
