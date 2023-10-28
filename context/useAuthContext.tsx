@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  updateProfile,
   User,
 } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
@@ -19,12 +20,18 @@ type AuthContextProps = {
   signUp: (data: formData) => void
   resetPassword: (email: string) => void
   getCurrentUser: () => void
+  updateUserInfo: (data: ProfileUpdate) => void
   loading: boolean
   user: User | null
 }
 
 type AuthProviderProps = {
   children: React.ReactNode
+}
+
+type ProfileUpdate = {
+  name: string,
+  URL: string
 }
 
 export const useAuthContext = createContext({} as AuthContextProps)
@@ -49,11 +56,14 @@ function AuthContext({ children }: AuthProviderProps) {
   }
 
   const signUp = async ({ email, password }: formData) => {
+    setLoading(true)
     try {
       await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password)
       router.push('/(tabs)/home/home')
     } catch (error) {
       alert(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -82,6 +92,19 @@ function AuthContext({ children }: AuthProviderProps) {
     })
   }
 
+  const updateUserInfo = async ({name, URL}: ProfileUpdate) => {
+    try {
+        if (FIREBASE_AUTH.currentUser) {
+            await updateProfile(FIREBASE_AUTH.currentUser, {
+                displayName: name,
+                photoURL: URL
+            });
+        }
+    } catch (error) {
+        alert(error);
+    }
+  }
+
   return (
     <useAuthContext.Provider
       value={{
@@ -89,6 +112,7 @@ function AuthContext({ children }: AuthProviderProps) {
         logout,
         signUp,
         loading,
+        updateUserInfo,
         resetPassword,
         getCurrentUser,
         user,

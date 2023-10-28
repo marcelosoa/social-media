@@ -1,23 +1,16 @@
-import { AntDesign } from "@expo/vector-icons";
-import { useAuthContext } from "context/useAuthContext";
-import { router } from "expo-router";
-import { getAuth } from "firebase/auth";
-import { useContext, useEffect } from "react";
-import { Text, View } from "react-native";
+import { AntDesign } from '@expo/vector-icons'
+import { useAuthContext } from 'context/useAuthContext'
+import { useContext } from 'react'
+import { Text, View } from 'react-native'
 
-const auth = getAuth()
-
-
-
-export default function Profile () {
-  const { logout, user } = useContext(useAuthContext)  
+export default function Profile() {
+  const { logout, user } = useContext(useAuthContext)
   return (
-    <View className="bg-primary flex-1 justify-between flex-row pt-16 pl-6 pr-6">
-      <View>
-      <Text className="text-white">{user?.email}</Text>
+    <View className="bg-background flex-1">
+      <View className="flex items-center justify-between w-full pl-7 pr-7 pt-16 flex-row">
+        <Text className="text-white">{user?.email}</Text>
+        <AntDesign name="logout" size={24} color={'#fff'} onPress={logout} />
       </View>
-      
-      <AntDesign name="logout" size={24} color={'#fff'} onPress={logout}/>
     </View>
   )
 }

@@ -1,5 +1,5 @@
 import { AvatarComponent } from 'components/avatar'
-import { Pressable, Text, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 
