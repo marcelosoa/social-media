@@ -1,17 +1,16 @@
 import { Text, KeyboardAvoidingView, View, TouchableOpacity, ActivityIndicator} from 'react-native'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { InputComponent } from 'components/input'
 import { ButtonComponent } from 'components/button'
-import { useAuthContext } from 'context/useAuthContext'
 import { Feather } from '@expo/vector-icons'
 import { router } from 'expo-router'
-import { ACTIVE } from 'nativewind/dist/utils/selector'
+import { AuthContext } from 'context/useAuthContext'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { signIn, loading } = useContext(useAuthContext)
+  const { signIn, loading } = useContext(AuthContext)
   
   return (
     <KeyboardAvoidingView className="items-center justify-center bg-background text-text flex-auto">

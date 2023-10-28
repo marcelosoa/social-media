@@ -1,9 +1,9 @@
-import AuthContext from 'context/useAuthContext'
+import AuthProvider, { AuthContext } from 'context/useAuthContext'
 import { Stack, Tabs } from 'expo-router'
 
 export default function StackLayout() {
   return (
-    <AuthContext>
+    <AuthProvider>
       <Stack
         screenOptions={{
           headerShown: false,
@@ -41,6 +41,6 @@ export default function StackLayout() {
           }}
         />
       </Stack>
-    </AuthContext>
+    </AuthProvider>
   )
 }

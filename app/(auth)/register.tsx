@@ -1,7 +1,8 @@
 import { Feather } from '@expo/vector-icons'
 import { ButtonComponent } from 'components/button'
 import { InputComponent } from 'components/input'
-import AuthContext, { useAuthContext } from 'context/useAuthContext'
+import { AuthContext } from 'context/useAuthContext'
+
 import { Stack } from 'expo-router'
 import { useContext, useState } from 'react'
 import { View, Text, ActivityIndicator } from 'react-native'
@@ -10,7 +11,7 @@ export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { signUp, loading } = useContext(useAuthContext)
+  const { signUp, loading } = useContext(AuthContext)
   return (
     <View className="flex-1 items-center justify-center bg-background">
       <InputComponent

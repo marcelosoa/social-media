@@ -1,11 +1,11 @@
 import { AntDesign } from '@expo/vector-icons'
-import AuthContext from 'context/useAuthContext'
+import AuthProvider from 'context/useAuthContext'
 
 import { Stack, Tabs } from 'expo-router'
 
 export default function TabLayout() {
   return (
-    <AuthContext>
+    <AuthProvider>
       <Tabs screenOptions={{
         tabBarStyle: {
           backgroundColor: '#3b3b3b'
@@ -42,6 +42,6 @@ export default function TabLayout() {
           }}
         /> */}
       </Tabs>
-    </AuthContext>
+    </AuthProvider>
   )
 }

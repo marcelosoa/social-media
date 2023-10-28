@@ -34,9 +34,9 @@ type ProfileUpdate = {
   photoURL: string
 }
 
-export const useAuthContext = createContext({} as AuthContextProps)
+export const AuthContext = createContext({} as AuthContextProps)
 
-function AuthContext({ children }: AuthProviderProps) {
+function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false)
 
@@ -93,6 +93,7 @@ function AuthContext({ children }: AuthProviderProps) {
   }
 
   const updateUserInfo = async ({name, photoURL}: ProfileUpdate) => {
+    setLoading(true)
     try {
         if (FIREBASE_AUTH.currentUser) {
             await updateProfile(FIREBASE_AUTH.currentUser, {
@@ -100,13 +101,16 @@ function AuthContext({ children }: AuthProviderProps) {
                 photoURL: photoURL
             });
         }
+        alert('User Profile Updated')
     } catch (error) {
         alert(error);
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <useAuthContext.Provider
+    <AuthContext.Provider
       value={{
         signIn,
         logout,
@@ -119,7 +123,7 @@ function AuthContext({ children }: AuthProviderProps) {
       }}
     >
       {children}
-    </useAuthContext.Provider>
+    </AuthContext.Provider>
   )
 }
-export default AuthContext
+export default AuthProvider

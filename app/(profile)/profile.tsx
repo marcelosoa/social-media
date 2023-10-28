@@ -1,12 +1,12 @@
 import { AntDesign } from '@expo/vector-icons'
 import { ButtonComponent } from 'components/button'
-import { useAuthContext } from 'context/useAuthContext'
+import { AuthContext } from 'context/useAuthContext'
 import { router } from 'expo-router'
 import { useContext, useState } from 'react'
 import { Text, View } from 'react-native'
 
 export default function Profile() {
-  const { logout, user, updateUserInfo } = useContext(useAuthContext)
+  const { logout, user, updateUserInfo } = useContext(AuthContext)
 
   const [name, setName] = useState('')
   const [photoURL, setPhotoURL] = useState(user?.photoURL || "")

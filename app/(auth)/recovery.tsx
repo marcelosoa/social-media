@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons'
 import { ButtonComponent } from 'components/button'
 import { InputComponent } from 'components/input'
-import AuthContext, { useAuthContext } from 'context/useAuthContext'
+import { AuthContext } from 'context/useAuthContext'
 import { Stack } from 'expo-router'
 import { useContext, useState } from 'react'
 import { View, Text } from 'react-native'
@@ -9,7 +9,7 @@ import { View, Text } from 'react-native'
 export default function RecoveryAccess() {
   const [email, setEmail] = useState('')
 
-  const { resetPassword } = useContext(useAuthContext)
+  const { resetPassword } = useContext(AuthContext)
   return (
     <View className="flex-1 bg-background">
       <Stack.Screen
