@@ -1,29 +1,32 @@
 import { AntDesign } from '@expo/vector-icons'
+import { AvatarComponent } from 'components/avatar'
 import { ButtonComponent } from 'components/button'
 import { AuthContext } from 'context/useAuthContext'
 import { router } from 'expo-router'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { Text, View } from 'react-native'
 
 export default function Profile() {
-  const { logout, user, updateUserInfo } = useContext(AuthContext)
-
-  const [name, setName] = useState('')
-  const [photoURL, setPhotoURL] = useState(user?.photoURL || "")
-
-  console.log()
-
+  const { logout, user } = useContext(AuthContext)
   return (
     <View className="bg-background flex-1">
       <View className="flex items-center justify-between w-full pl-7 pr-7 pt-16 flex-row">
-        <Text className="text-white">{user?.email}</Text>
         <AntDesign name="logout" size={24} color={'#fff'} onPress={logout} />
       </View>
 
-      <View className='mt-4 ml-4 items-center'>
-        <Text className='text-white'>Update user infos</Text>
+      <View className="items-center">
+        <AvatarComponent
+          size="large"
+          source={{
+            uri: user?.photoURL,
+          }}
+        />
+        <Text className="text-white mt-4 font-bold">{user?.displayName}</Text>
+      </View>
+
+      <View className="mt-4 ml-4 items-center">
         <ButtonComponent onPress={() => router.push('/edit')}>
-          <Text className='text-white'>Editar Perfil</Text>
+          <Text className="text-white font-bold">Editar Perfil</Text>
         </ButtonComponent>
       </View>
     </View>

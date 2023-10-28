@@ -4,7 +4,7 @@ import { View, Image } from "react-native";
 import { VariantProps, tv } from 'tailwind-variants'
 
 type AvatarProps = ComponentProps<'img'> & VariantProps<typeof avatar> &{
-  size: 'small' | 'normal'
+  size: 'small' | 'normal' | 'large'
   source: object
 }
 
@@ -13,14 +13,15 @@ const avatar = tv({
   variants: {
     size: {
       small: 'h-8 w-8',
-      normal: 'h-12 w-12'
+      normal: 'h-12 w-12',
+      large: 'h-24 w-24',
     }
   },
   defaultVariants: {
-    size: 'small'
+    size: 'normal'
   }
 })
 
-export function AvatarComponent ({ size, source, ...props }: AvatarProps ) {
+export function AvatarComponent ({ size ,source }: AvatarProps ) {
   return <Image source={source} className={avatar({size})} />
 }

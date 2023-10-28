@@ -2,9 +2,13 @@ import { AvatarComponent } from 'components/avatar'
 import { Pressable, View } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
+import { useContext } from 'react'
+import { AuthContext } from 'context/useAuthContext'
 
 export default function Home() {
+  const { user } = useContext(AuthContext)
   const router = useRouter()
+
   return (
     <View className="bg-background flex-1">
       <View className="flex items-center justify-between w-full pl-7 pr-7 pt-16 flex-row">
@@ -13,7 +17,7 @@ export default function Home() {
           <AvatarComponent
             size="normal"
             source={{
-              uri: 'https://footwearnews.com/wp-content/uploads/2022/04/travis-scott.jpg',
+              uri: user?.photoURL,
             }}
           />
           </Pressable>
