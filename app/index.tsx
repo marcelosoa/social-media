@@ -8,7 +8,6 @@ export default function Page() {
 
   useEffect(() => {
     getCurrentUser()
-    console.log(user, 'USER')
   }, [])
   
   return !user ? <Redirect href={'/(auth)/login'}/> : <Redirect href={'/(tabs)/favorites/favorites'}/>

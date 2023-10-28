@@ -1,7 +1,7 @@
 import { AntDesign } from '@expo/vector-icons'
 import AuthContext from 'context/useAuthContext'
 
-import { Tabs } from 'expo-router'
+import { Stack, Tabs } from 'expo-router'
 
 export default function TabLayout() {
   return (
@@ -35,6 +35,12 @@ export default function TabLayout() {
             title: 'Search',
           }}
         />
+        {/* <Stack.Screen
+          name='(profile)/edit'
+          options={{
+            headerTitle: 'TESTE EDIT'
+          }}
+        /> */}
       </Tabs>
     </AuthContext>
   )

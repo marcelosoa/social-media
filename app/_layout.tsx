@@ -28,6 +28,12 @@ export default function StackLayout() {
             headerTitle: 'profile'
           }}
         />
+        <Stack.Screen 
+          name='(profile)/edit'
+          options={{
+            headerTitle: 'Edit'
+          }}
+        />
         <Tabs.Screen
           name="(tabs)"
           options={{

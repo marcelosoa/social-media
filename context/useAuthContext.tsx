@@ -31,7 +31,7 @@ type AuthProviderProps = {
 
 type ProfileUpdate = {
   name: string,
-  URL: string
+  photoURL: string
 }
 
 export const useAuthContext = createContext({} as AuthContextProps)
@@ -73,7 +73,7 @@ function AuthContext({ children }: AuthProviderProps) {
     } catch (error) {
       alert(error)
     }
-    router.push('/(auth)/login')
+    router.replace('/(auth)/login')
   }
 
   const resetPassword = async (email: string) => {
@@ -92,12 +92,12 @@ function AuthContext({ children }: AuthProviderProps) {
     })
   }
 
-  const updateUserInfo = async ({name, URL}: ProfileUpdate) => {
+  const updateUserInfo = async ({name, photoURL}: ProfileUpdate) => {
     try {
         if (FIREBASE_AUTH.currentUser) {
             await updateProfile(FIREBASE_AUTH.currentUser, {
                 displayName: name,
-                photoURL: URL
+                photoURL: photoURL
             });
         }
     } catch (error) {
