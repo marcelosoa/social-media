@@ -6,7 +6,8 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@context/*": ["src/context/*"],
-      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
+      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"],
+      "@types/*": ["src/types/*"],
     }
   },
   "include": [

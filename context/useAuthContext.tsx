@@ -1,22 +1,28 @@
-import { useRouter } from "expo-router";
-import { createContext, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "firebaseConfig";
+import { useRouter } from 'expo-router'
+import { createContext, useState } from 'react'
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut,
+  User,
+} from 'firebase/auth'
+import { initializeApp } from 'firebase/app'
+import { firebaseConfig } from 'firebaseConfig'
+import { formData } from 'types'
 
 export const FIREBASE_APP = initializeApp(firebaseConfig)
-
-type formData = {
-  email: string,
-  password: string
-}
 
 type AuthContextProps = {
   signIn: (data: formData) => void
   logout: () => void
   signUp: (data: formData) => void
   resetPassword: (email: string) => void
-  name: string,
+  getCurrentUser: () => void
+  loading: boolean
+  user: User | null
 }
 
 type AuthProviderProps = {
@@ -25,59 +31,76 @@ type AuthProviderProps = {
 
 export const useAuthContext = createContext({} as AuthContextProps)
 
-function AuthContext ({children}: AuthProviderProps) {
-  const [user, setUser] = useState<formData | null>();
+function AuthContext({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false)
+
   const router = useRouter()
   const auth = getAuth()
 
-  const signIn = async ({ email, password}: formData) => {
+  const signIn = async ({ email, password }: formData) => {
+    setLoading(true)
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      if (email !== '' && password !== '') {
-        setUser({
-          email,
-          password,
-        })
-        router.push('/(tabs)/home/home')
-      }
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      setUser(userCredential.user)
+      router.push('/(tabs)/home/home')
     } catch (error) {
-      alert((error as Error).message || 'Ocorreu um erro ao tentar fazer login');
+      alert(error)
+    } finally {
+      setLoading(false)
     }
   }
-  const signUp = async ({email, password}: formData) => {
+
+  const signUp = async ({ email, password }: formData) => {
     try {
-      const response = await createUserWithEmailAndPassword(auth, email, password)
-      alert('check your email')
+      await createUserWithEmailAndPassword(auth, email, password)
       router.push('/(tabs)/home/home')
     } catch (error) {
       alert(error)
     }
   }
-  const logout = () => {
-    signOut(auth)
+
+  const logout = async () => {
+    try {
+      await signOut(auth)
+    } catch (error) {
+      alert(error)
+    }
     router.replace('/')
   }
 
   const resetPassword = async (email: string) => {
+    console.log('executou')
     try {
       await sendPasswordResetEmail(auth, email)
+      alert('Verify your email')
+      router.replace('/')
     } catch (error) {
       alert(error)
     }
   }
 
+  const getCurrentUser = () => {
+    onAuthStateChanged(auth, (user) => {
+      console.log(user, 'USER DETAILS')
+      setUser(user)
+    })
+  }
 
   return (
-    <useAuthContext.Provider value={{
-      signIn,
-      logout,
-      signUp,
-      resetPassword,
-      name: 'Marcelo'
-    }}>
+    <useAuthContext.Provider
+      value={{
+        signIn,
+        logout,
+        signUp,
+        loading,
+        resetPassword,
+        getCurrentUser,
+        user,
+      }}
+    >
       {children}
     </useAuthContext.Provider>
   )
-  
 }
 export default AuthContext
