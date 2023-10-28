@@ -10,7 +10,7 @@ import {
   User,
 } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
-import { firebaseConfig } from 'firebaseConfig'
+import { FIREBASE_AUTH, firebaseConfig } from 'firebaseConfig'
 import { formData } from 'types'
 
 export const FIREBASE_APP = initializeApp(firebaseConfig)
@@ -70,7 +70,6 @@ function AuthContext({ children }: AuthProviderProps) {
   }
 
   const resetPassword = async (email: string) => {
-    console.log('executou')
     try {
       await sendPasswordResetEmail(auth, email)
       alert('Verify your email')
@@ -81,8 +80,7 @@ function AuthContext({ children }: AuthProviderProps) {
   }
 
   const getCurrentUser = () => {
-    onAuthStateChanged(auth, (user) => {
-      console.log(user, 'USER DETAILS')
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
       setUser(user)
     })
   }
