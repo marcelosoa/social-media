@@ -8,11 +8,8 @@ export default function Favorites () {
   const { logout } = useContext(useAuthContext)
 
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text>Favorites</Text>
-      <ButtonComponent onPress={logout}>
-        <Text className="text-white">Desconectar</Text>
-      </ButtonComponent>
+    <View className="flex-1 justify-center items-center bg-background">
+      <Text className="text-white">Favorites</Text>
     </View>
   )
 }

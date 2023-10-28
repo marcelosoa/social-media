@@ -22,6 +22,12 @@ export default function StackLayout() {
             headerTitle: 'register',
           }}
         />
+        <Stack.Screen 
+          name='(profile)/profile'
+          options={{
+            headerTitle: 'profile'
+          }}
+        />
         <Tabs.Screen
           name="(tabs)"
           options={{

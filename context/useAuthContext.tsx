@@ -2,11 +2,9 @@ import { useRouter } from 'expo-router'
 import { createContext, useState } from 'react'
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  signOut,
   User,
 } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
@@ -36,12 +34,11 @@ function AuthContext({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(false)
 
   const router = useRouter()
-  const auth = getAuth()
 
   const signIn = async ({ email, password }: formData) => {
     setLoading(true)
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      const userCredential = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
       setUser(userCredential.user)
       router.push('/(tabs)/home/home')
     } catch (error) {
@@ -53,25 +50,25 @@ function AuthContext({ children }: AuthProviderProps) {
 
   const signUp = async ({ email, password }: formData) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
+      await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password)
       router.push('/(tabs)/home/home')
     } catch (error) {
       alert(error)
     }
   }
 
-  const logout = async () => {
+  const logout = () => {
     try {
-      await signOut(auth)
+      FIREBASE_AUTH.signOut()
     } catch (error) {
       alert(error)
     }
-    router.replace('/')
+    router.push('/(auth)/login')
   }
 
   const resetPassword = async (email: string) => {
     try {
-      await sendPasswordResetEmail(auth, email)
+      await sendPasswordResetEmail(FIREBASE_AUTH, email)
       alert('Verify your email')
       router.replace('/')
     } catch (error) {
