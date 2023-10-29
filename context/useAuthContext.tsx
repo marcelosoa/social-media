@@ -1,5 +1,5 @@
-import { useRouter } from 'expo-router'
-import { createContext, useState } from 'react'
+import { Redirect, useRouter } from 'expo-router'
+import { createContext, useEffect, useState } from 'react'
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -18,11 +18,12 @@ type AuthContextProps = {
   signIn: (data: formData) => void
   logout: () => void
   signUp: (data: formData) => void
-  resetPassword: (email: string) => void
-  getCurrentUser: () => void
+  // resetPassword: (email: string) => void
   updateUserInfo: (data: ProfileUpdate) => void
+  getUser: () => void
   loading: boolean
   user: User | null
+  
 }
 
 type AuthProviderProps = {
@@ -40,14 +41,17 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false)
 
+  const auth = FIREBASE_AUTH;
+
   const router = useRouter()
 
   const signIn = async ({ email, password }: formData) => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const userCredential = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
-      setUser(userCredential.user)
-      router.push('/(tabs)/home/home')
+      await signInWithEmailAndPassword(auth, email, password)
+      setUser(user)
+      alert('check your email')
+      router.push('/home/home')
     } catch (error) {
       alert(error)
     } finally {
@@ -58,13 +62,22 @@ function AuthProvider({ children }: AuthProviderProps) {
   const signUp = async ({ email, password }: formData) => {
     setLoading(true)
     try {
-      await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password)
-      router.push('/(tabs)/home/home')
+      await createUserWithEmailAndPassword(auth, email, password)
+      alert('check your email')
+      setUser(user)
     } catch (error) {
       alert(error)
     } finally {
       setLoading(false)
     }
+  }
+
+  const getUser = () => {
+    useEffect(() => {
+      onAuthStateChanged(auth, (user) => {
+        setUser(user)
+      })
+    }, [])
   }
 
   const logout = () => {
@@ -76,21 +89,15 @@ function AuthProvider({ children }: AuthProviderProps) {
     router.replace('/(auth)/login')
   }
 
-  const resetPassword = async (email: string) => {
-    try {
-      await sendPasswordResetEmail(FIREBASE_AUTH, email)
-      alert('Verify your email')
-      router.replace('/')
-    } catch (error) {
-      alert(error)
-    }
-  }
-
-  const getCurrentUser = () => {
-    onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      setUser(user)
-    })
-  }
+  // const resetPassword = async (email: string) => {
+  //   try {
+  //     await sendPasswordResetEmail(FIREBASE_AUTH, email)
+  //     alert('Verify your email')
+  //     router.replace('/')
+  //   } catch (error) {
+  //     alert(error)
+  //   }
+  // }
 
   const updateUserInfo = async ({name, photoURL}: ProfileUpdate) => {
     setLoading(true)
@@ -116,10 +123,10 @@ function AuthProvider({ children }: AuthProviderProps) {
         signIn,
         logout,
         signUp,
+        getUser,
         loading,
         updateUserInfo,
-        resetPassword,
-        getCurrentUser,
+        // resetPassword,
         user,
       }}
     >
