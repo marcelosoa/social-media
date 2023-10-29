@@ -19,14 +19,7 @@ export default function TabLayout() {
             title: 'Home',
           }}
         />
-        <Tabs.Screen
-          name="favorites/favorites"
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ size, color }) => <AntDesign name="star" color={color} size={size} />,
-            title: 'Favorites',
-          }}
-        />
+        
         <Tabs.Screen
           name="search/search"
           options={{
@@ -35,12 +28,6 @@ export default function TabLayout() {
             title: 'Search',
           }}
         />
-        {/* <Stack.Screen
-          name='(profile)/edit'
-          options={{
-            headerTitle: 'TESTE EDIT'
-          }}
-        /> */}
       </Tabs>
     </AuthProvider>
   )
