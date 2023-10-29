@@ -5,12 +5,26 @@ import { ButtonComponent } from 'components/button'
 import { Feather } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import { AuthContext } from 'context/useAuthContext'
+import { FIREBASE_AUTH } from 'firebaseConfig'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const auth = FIREBASE_AUTH
 
-  const { signIn, loading } = useContext(AuthContext)
+  const signIn = async () => {
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      router.push('/home/home')
+    } catch (error) {
+      alert(error)
+    } finally {
+      setLoading(false)
+    }
+  }
   
   return (
     <KeyboardAvoidingView className="items-center justify-center bg-background text-text flex-auto">
@@ -45,7 +59,7 @@ export default function Login() {
         </TouchableOpacity>
       </View>
 
-      {loading ? <ActivityIndicator color={'#fff'} size={'small'} /> : <ButtonComponent onPress={() => signIn({ email, password })}>
+      {loading ? <ActivityIndicator color={'#fff'} size={'small'} /> : <ButtonComponent onPress={signIn}>
         <Text className="text-text font-bold text-lg">Login</Text>
       </ButtonComponent>}
 

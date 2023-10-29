@@ -8,11 +8,9 @@ import {
   updateProfile,
   User,
 } from 'firebase/auth'
-import { initializeApp } from 'firebase/app'
-import { FIREBASE_AUTH, firebaseConfig } from 'firebaseConfig'
-import { formData } from 'types'
 
-export const FIREBASE_APP = initializeApp(firebaseConfig)
+import { FIREBASE_INITIALIZE_AUTH } from 'firebaseConfig'
+import { formData } from 'types'
 
 type AuthContextProps = {
   signIn: (data: formData) => void
@@ -20,7 +18,6 @@ type AuthContextProps = {
   signUp: (data: formData) => void
   // resetPassword: (email: string) => void
   updateUserInfo: (data: ProfileUpdate) => void
-  getUser: () => void
   loading: boolean
   user: User | null
   
@@ -41,14 +38,12 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false)
 
-  const auth = FIREBASE_AUTH;
-
   const router = useRouter()
 
   const signIn = async ({ email, password }: formData) => {
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(FIREBASE_INITIALIZE_AUTH, email, password)
       setUser(user)
       alert('check your email')
       router.push('/home/home')
@@ -62,7 +57,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   const signUp = async ({ email, password }: formData) => {
     setLoading(true)
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
+      await createUserWithEmailAndPassword(FIREBASE_INITIALIZE_AUTH, email, password)
       alert('check your email')
       setUser(user)
     } catch (error) {
@@ -72,17 +67,9 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const getUser = () => {
-    useEffect(() => {
-      onAuthStateChanged(auth, (user) => {
-        setUser(user)
-      })
-    }, [])
-  }
-
   const logout = () => {
     try {
-      FIREBASE_AUTH.signOut()
+      FIREBASE_INITIALIZE_AUTH.signOut()
     } catch (error) {
       alert(error)
     }
@@ -91,7 +78,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   // const resetPassword = async (email: string) => {
   //   try {
-  //     await sendPasswordResetEmail(FIREBASE_AUTH, email)
+  //     await sendPasswordResetEmail(FIREBASE_INITIALIZE_AUTH, email)
   //     alert('Verify your email')
   //     router.replace('/')
   //   } catch (error) {
@@ -102,8 +89,8 @@ function AuthProvider({ children }: AuthProviderProps) {
   const updateUserInfo = async ({name, photoURL}: ProfileUpdate) => {
     setLoading(true)
     try {
-        if (FIREBASE_AUTH.currentUser) {
-            await updateProfile(FIREBASE_AUTH.currentUser, {
+        if (FIREBASE_INITIALIZE_AUTH.currentUser) {
+            await updateProfile(FIREBASE_INITIALIZE_AUTH.currentUser, {
                 displayName: name,
                 photoURL: photoURL
             });
@@ -123,7 +110,6 @@ function AuthProvider({ children }: AuthProviderProps) {
         signIn,
         logout,
         signUp,
-        getUser,
         loading,
         updateUserInfo,
         // resetPassword,

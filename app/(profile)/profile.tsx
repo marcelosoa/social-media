@@ -3,15 +3,26 @@ import { AvatarComponent } from 'components/avatar'
 import { ButtonComponent } from 'components/button'
 import { AuthContext } from 'context/useAuthContext'
 import { router } from 'expo-router'
-import { useContext } from 'react'
+import { User, onAuthStateChanged } from 'firebase/auth'
+import { FIREBASE_AUTH } from 'firebaseConfig'
+import { useContext, useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 
 export default function Profile() {
-  const { logout, user } = useContext(AuthContext)
+  const { logout } = useContext(AuthContext)
+
+  const [user, setUser] = useState<User | null>(null)
+  
+  useEffect(() => {
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      setUser(user)
+    })
+  }, [])
+
   return (
     <View className="bg-background flex-1">
       <View className="flex items-center justify-between w-full pl-7 pr-7 pt-16 flex-row">
-        <AntDesign name="logout" size={24} color={'#fff'} onPress={logout} />
+        <AntDesign name="logout" size={24} color={'#fff'} onPress={logout}/>
       </View>
 
       <View className="items-center">

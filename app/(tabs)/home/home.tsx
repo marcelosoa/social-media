@@ -1,12 +1,12 @@
 import { AvatarComponent } from 'components/avatar'
-import { Pressable, View } from 'react-native'
+import { Pressable, View, Text } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { useContext } from 'react'
 import { AuthContext } from 'context/useAuthContext'
 
 export default function Home() {
-  const { user } = useContext(AuthContext)
+  const { user, logout } = useContext(AuthContext)
   const router = useRouter()
 
   return (
@@ -24,6 +24,9 @@ export default function Home() {
         </View>
         <AntDesign name="star" size={24} color={'#3b3b3b'}/>
       </View>
+      <Pressable onPress={logout}>
+        <Text className='text-white'>Desconectar</Text>
+      </Pressable>
     </View>
   )
 }
