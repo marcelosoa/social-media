@@ -11,25 +11,25 @@ export default function StackLayout() {
       >
         <Stack.Screen name="index" />
         <Stack.Screen
-          name="(auth)/recovery"
+          name="(auth)/recovery/recovery"
           options={{
             headerTitle: 'recovery',
           }}
         />
         <Stack.Screen
-          name="(auth)/register"
+          name="(auth)/register/register"
           options={{
             headerTitle: 'register',
           }}
         />
         <Stack.Screen 
-          name='(profile)/profile'
+          name='(profile)/profile/profile'
           options={{
             headerTitle: 'profile'
           }}
         />
         <Stack.Screen 
-          name='(profile)/edit'
+          name='(profile)/edi/edit'
           options={{
             headerTitle: 'Edit'
           }}

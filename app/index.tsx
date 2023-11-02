@@ -1,7 +1,7 @@
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
 import { defaultApp } from 'firebaseConfig';
 import { useContext, useEffect, useState } from 'react';
-import Login from './(auth)/login';
+import Login from './(auth)/login/login';
 import Home from './(tabs)/home/home';
 import { AuthContext } from 'context/useAuthContext';
 import { ActivityIndicator } from 'react-native';

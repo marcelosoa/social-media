@@ -1,11 +1,11 @@
 import { Text, KeyboardAvoidingView, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useContext, useState } from 'react'
-import { InputComponent } from 'components/input'
-import { ButtonComponent } from 'components/button'
 import { AntDesign, Feather } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import { AuthContext } from 'context/useAuthContext'
 import { useTogglePassword } from 'hooks/useTogglePassword'
+import { InputComponent } from 'components/input'
+import { ButtonComponent } from 'components/button'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -38,10 +38,10 @@ export default function Login() {
         />
 
         <View className="flex flex-row justify-between items-end w-full p-3">
-          <TouchableOpacity onPress={() => router.push('/(auth)/register')}>
+          <TouchableOpacity onPress={() => router.push('/register/register')}>
             <Text className="text-white">Create Account</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('/(auth)/recovery')}>
+          <TouchableOpacity onPress={() => router.push('/recovery/recovery')}>
             <Text className="text-white">Forgot Access?</Text>
           </TouchableOpacity>
         </View>
