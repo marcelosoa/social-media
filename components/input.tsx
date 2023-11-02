@@ -1,21 +1,30 @@
-import { TextInput, View } from "react-native";
+import { TextInput, View, Text } from 'react-native'
 
 type InputProps = {
-  placeholder: string,
+  placeholder: string
   onChangeText: (value: string) => void
-  error?: string,
+  error?: string
   disabled: boolean
   startIcon?: React.ReactNode
-  endIcon?: React.ReactNode,
+  endIcon?: React.ReactNode
   secureTextEntry: any
   value: string
 }
 
-export function InputComponent ({ placeholder, onChangeText, startIcon, endIcon, secureTextEntry, value, error,...props }: InputProps) {
+export function InputComponent({
+  placeholder,
+  onChangeText,
+  startIcon,
+  endIcon,
+  secureTextEntry,
+  value,
+  error,
+  ...props
+}: InputProps) {
   return (
     <View className="flex items-center flex-row pt-1 pb-3 pl-1 pr-4 gap-2 m-3 rounded-lg bg-secondary">
       {startIcon}
-      <TextInput 
+      <TextInput
         className="flex-1 text-text text-sm items-center"
         placeholder={placeholder}
         placeholderTextColor={'#fff'}
@@ -26,7 +35,7 @@ export function InputComponent ({ placeholder, onChangeText, startIcon, endIcon,
         {...props}
       />
       {endIcon}
-      {error && <View className="text-red-600">{error}</View>}
+      <View className="ml-4">{!!error && <Text className="text-gray-200">{error}</Text>}</View>
     </View>
   )
 }
