@@ -2,14 +2,16 @@ import { Text, KeyboardAvoidingView, View, TouchableOpacity, ActivityIndicator }
 import { useContext, useState } from 'react'
 import { InputComponent } from 'components/input'
 import { ButtonComponent } from 'components/button'
-import { Feather } from '@expo/vector-icons'
+import { AntDesign, Feather } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import { AuthContext } from 'context/useAuthContext'
+import { useTogglePassword } from 'hooks/useTogglePassword'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const { signIn, loading } = useContext(AuthContext)
   const [password, setPassword] = useState('')
+  const { togglePassword, visibility } = useTogglePassword()
 
   return (
     <View className='items-center justify-center bg-background text-text flex-auto'>
@@ -28,8 +30,11 @@ export default function Login() {
           disabled={false}
           onChangeText={(password) => setPassword(password)}
           value={password}
-          endIcon={<Feather name="eye" size={16} color={'#fff'} />}
-          secureTextEntry={true}
+          endIcon={visibility 
+            ? <AntDesign name='eye' onPress={togglePassword} size={16} color={'#fff'}/> 
+            : <AntDesign name='eyeo' onPress={togglePassword} size={16} color={'#fff'} /> 
+          }
+          secureTextEntry={visibility}
         />
 
         <View className="flex flex-row justify-between items-end w-full p-3">

@@ -19,6 +19,7 @@ type AuthContextProps = {
   updateUserInfo: (data: ProfileUpdate) => void
   loading: boolean
   user: User | null
+  error: string
 }
 
 type AuthProviderProps = {
@@ -35,6 +36,7 @@ export const AuthContext = createContext({} as AuthContextProps)
 function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string>('')
 
   const router = useRouter()
   const auth = getAuth()
@@ -47,11 +49,12 @@ function AuthProvider({ children }: AuthProviderProps) {
       alert('check your email')
       router.push('/home/home')
     } catch (error) {
-      alert(error)
+      setError(error?.message)
     } finally {
       setLoading(false)
     }
   }
+
 
   const signUp = async ({ email, password }: formData) => {
     setLoading(true)
@@ -103,6 +106,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         loading,
         updateUserInfo,
         user,
+        error
       }}
     >
       {children}
