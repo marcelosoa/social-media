@@ -19,10 +19,21 @@ export default function EditProfile() {
       quality: 1,
     })
 
-    console.log(result)
-
     if (!result.canceled) {
       setPhotoURL(result.assets[0].uri)
+    }
+  }
+
+  const takePicture = async () => {
+    let cameraResp = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      aspect: [4, 3],
+      quality: 1,
+    })
+
+    if (!cameraResp.canceled) {
+      setPhotoURL(cameraResp.assets[0].uri)
     }
   }
 
@@ -48,6 +59,10 @@ export default function EditProfile() {
           {photoURL && <AvatarComponent source={{ uri: photoURL }} size="large" />}
           <ButtonComponent onPress={pickImage}>
             <Text className="text-white">Selecione a sua nova imagem de perfil</Text>
+          </ButtonComponent>
+
+          <ButtonComponent onPress={takePicture}>
+            <Text className="text-white">Tirar foto</Text>
           </ButtonComponent>
         </View>
 
