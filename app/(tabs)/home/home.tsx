@@ -2,11 +2,22 @@ import { AvatarComponent } from 'components/avatar'
 import { Pressable, View, Text } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from 'context/useAuthContext'
+import { User, getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export default function Home() {
-  const { user, logout } = useContext(AuthContext)
+  const { logout } = useContext(AuthContext)
+  const [user, setUser] = useState<User | null>(null)
+  const auth = getAuth()
+
+
+  useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      setUser(user)
+    })
+  }, [])
+
   const router = useRouter()
 
   return (
@@ -22,9 +33,9 @@ export default function Home() {
           />
           </Pressable>
         </View>
-        {/* <AntDesign name="star" size={24} color={'#3b3b3b'}/> */}
+        <Text className='text-white'>{user?.displayName}</Text>
       </View>
-      <Text className='text-white'>{user?.displayName}</Text>
+      
       <Pressable onPress={logout} className='items-center justify-center'>
         <Text className='text-white'>Desconectar</Text>
       </Pressable>

@@ -15,3 +15,5 @@ const defaultApp = initializeApp(firebaseConfig);
 initializeAuth(defaultApp, {
   persistence: getReactNativePersistence(AsyncStorage)
 });
+
+export { defaultApp }

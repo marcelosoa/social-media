@@ -1,13 +1,14 @@
-import { AuthContext } from 'context/useAuthContext';
-import { Redirect } from 'expo-router'
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useContext, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { defaultApp } from 'firebaseConfig';
+import {  useEffect, useState } from 'react';
+import Login from './(auth)/login';
+import Home from './(tabs)/home/home';
+defaultApp
 
 export default function Page() {
   const [user, setUser] = useState<User | null>(null)
 
-  const auth = getAuth()
+  const auth = getAuth(defaultApp)
   
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -17,11 +18,5 @@ export default function Page() {
   }, [])
 
 
-  return (
-    <View>
-      {user ? (
-        <Redirect href={'/(tabs)/home/home'}/>
-      ): <Redirect href={'/(auth)/login'}/>}
-    </View>
-  )
+  return !user ? <Login /> : <Home />
 }
