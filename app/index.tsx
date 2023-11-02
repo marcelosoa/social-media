@@ -1,15 +1,16 @@
 import { AuthContext } from 'context/useAuthContext';
 import { Redirect } from 'expo-router'
-import { User, onAuthStateChanged } from 'firebase/auth';
-import { FIREBASE_AUTH } from 'firebaseConfig';
+import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 export default function Page() {
   const [user, setUser] = useState<User | null>(null)
+
+  const auth = getAuth()
   
   useEffect(() => {
-    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+    onAuthStateChanged(auth, (user) => {
       console.log(user, 'USER')
       setUser(user)
     })

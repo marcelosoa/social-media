@@ -2,8 +2,7 @@ import { Feather } from '@expo/vector-icons'
 import { ButtonComponent } from 'components/button'
 import { InputComponent } from 'components/input'
 import { AuthContext } from 'context/useAuthContext'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { FIREBASE_AUTH } from 'firebaseConfig'
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
 
 import { useContext, useState } from 'react'
 import { View, Text, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
@@ -12,7 +11,7 @@ export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const auth = FIREBASE_AUTH
+  const auth = getAuth()
   // const { signUp, loading } = useContext(AuthContext)
 
   const signUp = async () => {

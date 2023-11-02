@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router'
 import { createContext, useState } from 'react'
 import {
   createUserWithEmailAndPassword,
+  getAuth,
   signInWithEmailAndPassword,
   updateProfile,
   User,
@@ -9,7 +10,6 @@ import {
 } from 'firebase/auth'
 
 import { formData } from 'types'
-import { FIREBASE_AUTH } from 'firebaseConfig'
 
 type AuthContextProps = {
   signIn: (data: formData) => void
@@ -37,11 +37,12 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(false)
 
   const router = useRouter()
+  const auth = getAuth()
 
   const signIn = async ({ email, password }: formData) => {
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
+      await signInWithEmailAndPassword(auth, email, password)
       setUser(user)
       alert('check your email')
       router.push('/home/home')
@@ -55,7 +56,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   const signUp = async ({ email, password }: formData) => {
     setLoading(true)
     try {
-      await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password)
+      await createUserWithEmailAndPassword(auth, email, password)
       alert('check your email')
       setUser(user)
     } catch (error) {
@@ -67,7 +68,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = () => {
     try {
-      FIREBASE_AUTH.signOut()
+      auth.signOut()
     } catch (error) {
       alert(error)
     }
@@ -77,8 +78,8 @@ function AuthProvider({ children }: AuthProviderProps) {
   const updateUserInfo = async ({name, photoURL}: ProfileUpdate) => {
     setLoading(true)
     try {
-        if (FIREBASE_AUTH.currentUser) {
-            await updateProfile(FIREBASE_AUTH.currentUser, {
+        if (auth.currentUser) {
+            await updateProfile(auth.currentUser, {
                 displayName: name,
                 photoURL: photoURL
             });

@@ -5,14 +5,13 @@ import { ButtonComponent } from 'components/button'
 import { Feather } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import { AuthContext } from 'context/useAuthContext'
-import { FIREBASE_AUTH } from 'firebaseConfig'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const auth = FIREBASE_AUTH
+  const auth = getAuth()
 
   const signIn = async () => {
     setLoading(true);

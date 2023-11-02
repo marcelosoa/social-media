@@ -22,9 +22,10 @@ export default function Home() {
           />
           </Pressable>
         </View>
-        <AntDesign name="star" size={24} color={'#3b3b3b'}/>
+        {/* <AntDesign name="star" size={24} color={'#3b3b3b'}/> */}
       </View>
-      <Pressable onPress={logout}>
+      <Text className='text-white'>{user?.displayName}</Text>
+      <Pressable onPress={logout} className='items-center justify-center'>
         <Text className='text-white'>Desconectar</Text>
       </Pressable>
     </View>
