@@ -1,12 +1,12 @@
 import { useRouter } from 'expo-router'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
   User,
-  
 } from 'firebase/auth'
 
 import { formData } from 'types'
@@ -57,8 +57,9 @@ function AuthProvider({ children }: AuthProviderProps) {
     setLoading(true)
     try {
       await createUserWithEmailAndPassword(auth, email, password)
-      alert('check your email')
       setUser(user)
+      router.push('/home/home')
+      alert('check your email')
     } catch (error) {
       alert(error)
     } finally {

@@ -28,7 +28,7 @@ export default function Register() {
 
   return (
     <View className="flex-1 items-center justify-center bg-background">
-      <KeyboardAvoidingView behavior="padding">
+      <KeyboardAvoidingView behavior="padding" className='w-full items-center'>
         <InputComponent
           onChangeText={(email) => setEmail(email)}
           placeholder="Email"
