@@ -30,7 +30,7 @@ export default function Home() {
       <View className="flex items-center">
         <HeaderComponent filterIcon={<AntDesign name="filter" color={'#fff'} size={16} />} />
 
-        <View className='w-full'>
+        <View className=''>
           {items.map((item, index) => (
             <CardComponent key={index}
               category={item.category}
