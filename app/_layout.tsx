@@ -35,7 +35,7 @@ export default function StackLayout() {
           }}
         />
         <Stack.Screen 
-          name='(item)/item'
+          name='(item)/[id]item'
           options={{
             headerTitle: 'item'
           }}

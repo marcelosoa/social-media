@@ -14,7 +14,7 @@ type CardProps = {
 export function CardComponent({ source, title, description, location, price, category }: CardProps) {
   return (
     <View className="bg-primary w-full h-36 mt-6 pr-4">
-      <Pressable onPress={() => router.push('/(item)/item')}>
+      <Pressable onPress={() => ''}>
       <View className="flex items-center flex-row">
         <View className="mt-2">
           <Image source={source} className="w-52 h-36" />
