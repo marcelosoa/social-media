@@ -53,12 +53,12 @@ function StackLayout() {
             headerTitle: 'item'
           }}
         />
-        <Tabs.Screen
+        {/* <Tabs.Screen
           name="(tabs)"
           options={{
             headerShown: false,
           }}
-        />
+        /> */}
       </Stack>
     </AuthProvider>
   )

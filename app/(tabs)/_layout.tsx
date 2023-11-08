@@ -34,8 +34,17 @@ function TabLayout() {
           tabBarStyle: {
             backgroundColor: '#3b3b3b',
           },
+          tabBarLabelStyle: {
+            color: '#fff'
+          }
         }}
       >
+        {/* <Tabs.Screen
+          name="(tabs)"
+          options={{
+            headerShown: false,
+          }}
+        /> */}
         <Tabs.Screen
           name="home/home"
           options={{
@@ -56,9 +65,16 @@ function TabLayout() {
         <Tabs.Screen
           name="new/new"
           options={{
-            headerShown: false,
-            tabBarIcon: ({ size, color }) => <Ionicons name="add-outline" color={color} size={size} />,
-            title: 'New'
+            headerShown: true,
+            tabBarIcon: ({ size, color }) => <Ionicons name="add-circle-outline" color={color} size={size} />,
+            title: 'Novo Anúncio',
+          
+            headerStyle: {
+              backgroundColor: '#3b3b3b'
+            },
+            headerTitleStyle: {
+              color: '#fff'
+            }
           }}
         />
         <Tabs.Screen
