@@ -48,18 +48,6 @@ function StackLayout() {
           }}
         />
         <Stack.Screen 
-          name='(profile)/profile'
-          options={{
-            headerTitle: 'profile'
-          }}
-        />
-        <Stack.Screen 
-          name='(profile)/edit'
-          options={{
-            headerTitle: 'Edit'
-          }}
-        />
-        <Stack.Screen 
           name='(item)/item'
           options={{
             headerTitle: 'item'

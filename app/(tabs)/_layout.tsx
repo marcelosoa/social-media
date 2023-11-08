@@ -1,4 +1,4 @@
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign, Ionicons } from '@expo/vector-icons'
 import AuthProvider from 'context/useAuthContext'
 import { useFonts } from 'expo-font'
 
@@ -40,7 +40,7 @@ function TabLayout() {
           name="home/home"
           options={{
             headerShown: false,
-            tabBarIcon: ({ size, color }) => <AntDesign name="home" color={color} size={size} />,
+            tabBarIcon: ({ size, color }) => <Ionicons name="home" color={color} size={size} />,
             title: 'Home',
           }}
         />
@@ -49,7 +49,7 @@ function TabLayout() {
           name="search/search"
           options={{
             headerShown: false,
-            tabBarIcon: ({ size, color }) => <AntDesign name="search1" color={color} size={size} />,
+            tabBarIcon: ({ size, color }) => <Ionicons name="search-outline" color={color} size={size} />,
             title: 'Search',
           }}
         />
@@ -57,7 +57,8 @@ function TabLayout() {
           name="new/new"
           options={{
             headerShown: false,
-            tabBarIcon: ({ size, color }) => <AntDesign name="addfile" color={color} size={size} />,
+            tabBarIcon: ({ size, color }) => <Ionicons name="add-outline" color={color} size={size} />,
+            title: 'New'
           }}
         />
         <Tabs.Screen
@@ -65,7 +66,7 @@ function TabLayout() {
           options={{
             headerShown: false,
             tabBarIcon: ({ size, color }) => (
-              <AntDesign name="message1" color={color} size={size} />
+              <Ionicons name="chatbox-outline" color={color} size={size} />
             ),
             title: 'Messages',
             headerStyle: {
@@ -77,8 +78,8 @@ function TabLayout() {
           name="profile/profile"
           options={{
             headerShown: false,
-            tabBarIcon: ({ size, color }) => <AntDesign name="user" color={color} size={size} />,
-            title: 'profile',
+            tabBarIcon: ({ size, color }) => <Ionicons name="person-outline" color={color} size={size} />,
+            title: 'Profile',
             headerStyle: {
               backgroundColor: '#8a8a8a',
             },

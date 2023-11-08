@@ -88,7 +88,7 @@ function AuthProvider({ children }: AuthProviderProps) {
             });
         }
         alert('User Profile Updated')
-        router.push('/(profile)/profile')
+        router.push('/(tabs)/profile/profile')
     } catch (error) {
         alert(error);
     } finally {
