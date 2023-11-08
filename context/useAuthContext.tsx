@@ -46,7 +46,6 @@ function AuthProvider({ children }: AuthProviderProps) {
     try {
       await signInWithEmailAndPassword(auth, email, password)
       setUser(user)
-      alert('check your email')
       router.push('/home/home')
     } catch (error) {
       setError(error?.message)
