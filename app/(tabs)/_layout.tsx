@@ -1,7 +1,7 @@
 import { AntDesign } from '@expo/vector-icons'
 import AuthProvider from 'context/useAuthContext'
 
-import { Stack, Tabs } from 'expo-router'
+import { Tabs } from 'expo-router'
 
 export default function TabLayout() {
   return (
@@ -26,6 +26,17 @@ export default function TabLayout() {
             headerShown: false,
             tabBarIcon: ({ size, color }) => <AntDesign name="search1" color={color} size={size} />,
             title: 'Search',
+          }}
+        />
+         <Tabs.Screen
+          name="messages/messages"
+          options={{
+            headerShown: true,
+            tabBarIcon: ({ size, color }) => <AntDesign name="message1" color={color} size={size} />,
+            title: 'Messages',
+            headerStyle: {
+              backgroundColor: '#8a8a8a'
+            }
           }}
         />
       </Tabs>
