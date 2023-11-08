@@ -53,11 +53,11 @@ export default function Login() {
         />
 
         <View className="flex flex-row justify-between items-end w-full p-3">
-          <TouchableOpacity onPress={() => router.push('/(auth)/register')}>
-            <Text className="text-white font-sans">Criar Conta</Text>
+          <TouchableOpacity onPress={() => router.push('/register/register')}>
+            <Text className="text-white">Create Account</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('/(auth)/recovery')}>
-            <Text className="text-white font-sans">Esqueceu seu acesso?</Text>
+          <TouchableOpacity onPress={() => router.push('/recovery/recovery')}>
+            <Text className="text-white">Forgot Access?</Text>
           </TouchableOpacity>
         </View>
 

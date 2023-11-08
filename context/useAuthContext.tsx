@@ -75,7 +75,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     } catch (error) {
       alert(error)
     }
-    router.replace('/(auth)/login')
+    router.replace('/login/login')
   }
 
   const updateUserInfo = async ({name, photoURL}: ProfileUpdate) => {

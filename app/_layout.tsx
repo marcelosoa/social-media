@@ -36,13 +36,13 @@ function StackLayout() {
       >
         <Stack.Screen name="index" />
         <Stack.Screen
-          name="(auth)/recovery"
+          name="(auth)/recovery/recovery"
           options={{
             headerTitle: 'recovery',
           }}
         />
         <Stack.Screen
-          name="(auth)/register"
+          name="(auth)/register/register"
           options={{
             headerTitle: 'register',
           }}
