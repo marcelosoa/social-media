@@ -25,7 +25,7 @@ export function InputComponent({
     <View className="flex items-center flex-row pt-1 pb-3 pl-1 pr-4 gap-2 m-3 rounded-lg bg-secondary">
       {startIcon}
       <TextInput
-        className="flex-1 text-text text-sm items-center"
+        className="flex-1 text-text text-sm items-center font-sans"
         placeholder={placeholder}
         placeholderTextColor={'#fff'}
         secureTextEntry={secureTextEntry}
@@ -35,7 +35,7 @@ export function InputComponent({
         {...props}
       />
       {endIcon}
-      <View className="ml-4">{!!error && <Text className="text-gray-200">{error}</Text>}</View>
+      <Text className="text-gray-200 font-sans">{error}</Text>
     </View>
   )
 }

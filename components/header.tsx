@@ -10,7 +10,7 @@ type HeaderProps = {
 export function HeaderComponent({ filterIcon }: HeaderProps) {
   const [search, setSearch] = useState('')
   return (
-    <View className="mt-12 items-center justify-between w-full flex-row">
+    <View className="mt-12 items-center justify-between w-full flex-row font-sans">
       <InputComponent
         startIcon={<AntDesign name="search1" size={24} />}
         disabled={false}

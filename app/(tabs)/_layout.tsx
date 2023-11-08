@@ -1,16 +1,41 @@
 import { AntDesign } from '@expo/vector-icons'
 import AuthProvider from 'context/useAuthContext'
+import { useFonts } from 'expo-font'
 
-import { Tabs } from 'expo-router'
+import { SplashScreen, Tabs } from 'expo-router'
+import React, { useEffect } from 'react'
 
-export default function TabLayout() {
+export default function LayoutTabs() {
+  const [fontsLoaded] = useFonts({
+    'Urbanist-Regular': require('../../assets/fonts/Urbanist-Regular.ttf'),
+  })
+
+  useEffect(() => {
+    if (fontsLoaded) {
+    }
+  }, [fontsLoaded])
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync()
+    }
+  }, [fontsLoaded])
+
+  if (!fontsLoaded) {
+    return null
+  }
+  return <TabLayout />
+}
+function TabLayout() {
   return (
     <AuthProvider>
-      <Tabs screenOptions={{
-        tabBarStyle: {
-          backgroundColor: '#3b3b3b'
-        }
-      }}>
+      <Tabs
+        screenOptions={{
+          tabBarStyle: {
+            backgroundColor: '#3b3b3b',
+          },
+        }}
+      >
         <Tabs.Screen
           name="home/home"
           options={{
@@ -19,7 +44,7 @@ export default function TabLayout() {
             title: 'Home',
           }}
         />
-        
+
         <Tabs.Screen
           name="search/search"
           options={{
@@ -28,15 +53,35 @@ export default function TabLayout() {
             title: 'Search',
           }}
         />
-         <Tabs.Screen
+        <Tabs.Screen
+          name="new/new"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ size, color }) => <AntDesign name="addfile" color={color} size={size} />,
+          }}
+        />
+        <Tabs.Screen
           name="messages/messages"
           options={{
-            headerShown: true,
-            tabBarIcon: ({ size, color }) => <AntDesign name="message1" color={color} size={size} />,
+            headerShown: false,
+            tabBarIcon: ({ size, color }) => (
+              <AntDesign name="message1" color={color} size={size} />
+            ),
             title: 'Messages',
             headerStyle: {
-              backgroundColor: '#8a8a8a'
-            }
+              backgroundColor: '#8a8a8a',
+            },
+          }}
+        />
+        <Tabs.Screen
+          name="profile/profile"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ size, color }) => <AntDesign name="user" color={color} size={size} />,
+            title: 'profile',
+            headerStyle: {
+              backgroundColor: '#8a8a8a',
+            },
           }}
         />
       </Tabs>

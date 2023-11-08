@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
+        sans: ['Urbanist-Regular', 'sans-serif'],
         title: ["Montserrat-Bold",]
       },
       colors: {
