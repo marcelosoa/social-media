@@ -23,7 +23,7 @@ export default function Login() {
   return (
     <View className="items-center justify-center bg-background text-text flex-1">
       <Image
-        source={require('../../assets/images/logo1.png')}
+        source={require('../../../assets/images/logo1.png')}
         className="h-80 w-full"
         resizeMode="contain"
       />
