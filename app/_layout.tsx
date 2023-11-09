@@ -30,35 +30,29 @@ function StackLayout() {
   return (
     <AuthProvider>
       <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
+      screenOptions={{
+        headerShown: false,
+      }}
       >
         <Stack.Screen name="index" />
         <Stack.Screen
-          name="(auth)/recovery/recovery"
+          name="(stacks)/(auth)/recovery/recovery"
           options={{
             headerTitle: 'recovery',
           }}
         />
         <Stack.Screen
-          name="(auth)/register/register"
+          name="(stacks)/(auth)/register/register"
           options={{
             headerTitle: 'register',
           }}
         />
         <Stack.Screen 
-          name='(item)/item'
+          name='(stacks)/(item)/item'
           options={{
             headerTitle: 'item'
           }}
         />
-        {/* <Tabs.Screen
-          name="(tabs)"
-          options={{
-            headerShown: false,
-          }}
-        /> */}
       </Stack>
     </AuthProvider>
   )

@@ -1,4 +1,4 @@
-import { AntDesign, Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import AuthProvider from 'context/useAuthContext'
 import { useFonts } from 'expo-font'
 
@@ -39,12 +39,6 @@ function TabLayout() {
           }
         }}
       >
-        {/* <Tabs.Screen
-          name="(tabs)"
-          options={{
-            headerShown: false,
-          }}
-        /> */}
         <Tabs.Screen
           name="home/home"
           options={{
@@ -53,7 +47,6 @@ function TabLayout() {
             title: 'Home',
           }}
         />
-
         <Tabs.Screen
           name="search/search"
           options={{
